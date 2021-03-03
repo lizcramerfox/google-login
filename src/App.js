@@ -1,6 +1,5 @@
 import React from 'react'
-import Login from './Components/Login'
-import Logout from './Components/Logout'
+import GoogleAuth from './Components/GooogleAuth'
 import './App.css'
 
 function App() {
@@ -8,8 +7,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h2>Google Login/Logout App</h2>
-        <Login />
-        <Logout />
+        <GoogleAuth />
       </header>
     </div>
   )

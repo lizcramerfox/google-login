@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
-const CLIENT_ID = '655105447076-5b1235paare3l7cjp447q9cv69c0jcs9.apps.googleusercontent.com';
+const CLIENT_ID = '655105447076-lvotoi4b5glipdtcfpl2hvd2hlmfndv4.apps.googleusercontent.com';
 
-class GoogleBtn extends Component {
+class GoogleAuth extends Component {
    constructor(props) {
     super(props);
 
@@ -11,61 +11,55 @@ class GoogleBtn extends Component {
       isLogined: false,
       accessToken: ''
     };
-
-    this.login = this.login.bind(this);
-    this.handleLoginFailure = this.handleLoginFailure.bind(this);
-    this.logout = this.logout.bind(this);
-    this.handleLogoutFailure = this.handleLogoutFailure.bind(this);
   }
 
-  login (response) {
-    if(response.accessToken){
+  login = (response) => {
+    if(response.accessToken) {
       this.setState(state => ({
         isLogined: true,
         accessToken: response.accessToken
-      }));
+      }))
     }
   }
 
-  logout (response) {
+  logout = (response) => {
     this.setState(state => ({
       isLogined: false,
       accessToken: ''
-    }));
+    }))
   }
 
-  handleLoginFailure (response) {
+  handleLoginFailure = (response) => {
     alert('Failed to log in')
   }
 
-  handleLogoutFailure (response) {
+  handleLogoutFailure = (response) => {
     alert('Failed to log out')
   }
 
   render() {
     return (
     <div>
-      { this.state.isLogined ?
+      {this.state.isLogined ?
         <GoogleLogout
-          clientId={ CLIENT_ID }
+          clientId={CLIENT_ID}
           buttonText='Logout'
-          onLogoutSuccess={ this.logout }
-          onFailure={ this.handleLogoutFailure }
+          onLogoutSuccess={this.logout}
+          onFailure={this.handleLogoutFailure}
         >
         </GoogleLogout>: <GoogleLogin
-          clientId={ CLIENT_ID }
+          clientId={CLIENT_ID}
           buttonText='Login'
-          onSuccess={ this.login }
-          onFailure={ this.handleLoginFailure }
-          cookiePolicy={ 'single_host_origin' }
+          onSuccess={this.login}
+          onFailure={this.handleLoginFailure}
+          cookiePolicy={'single_host_origin'}
           responseType='code,token'
         />
       }
-      { this.state.accessToken ? <h5>Your Access Token: <br/><br/> { this.state.accessToken }</h5> : null }
-
+      {this.state.accessToken ? <h5>Your Access Token: <br/><br/> {this.state.accessToken} </h5> : null }
     </div>
     )
   }
 }
 
-export default GoogleBtn;
+export default GoogleAuth;

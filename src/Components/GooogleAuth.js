@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
 const CLIENT_ID = '655105447076-lvotoi4b5glipdtcfpl2hvd2hlmfndv4.apps.googleusercontent.com';
@@ -8,7 +8,7 @@ class GoogleAuth extends Component {
     super(props);
 
     this.state = {
-      isLogined: false,
+      isLoggedIn: false,
       accessToken: ''
     };
   }
@@ -16,7 +16,7 @@ class GoogleAuth extends Component {
   login = (response) => {
     if(response.accessToken) {
       this.setState(state => ({
-        isLogined: true,
+        isLoggedIn: true,
         accessToken: response.accessToken
       }))
     }
@@ -24,7 +24,7 @@ class GoogleAuth extends Component {
 
   logout = (response) => {
     this.setState(state => ({
-      isLogined: false,
+      isLoggedIn: false,
       accessToken: ''
     }))
   }
@@ -38,27 +38,37 @@ class GoogleAuth extends Component {
   }
 
   render() {
-    return (
-    <div>
-      {this.state.isLogined ?
-        <GoogleLogout
+    let authJsx
+
+    if (this.state.isLoggedIn) {
+      authJsx = (
+        <Fragment>
+          <GoogleLogout
           clientId={CLIENT_ID}
           buttonText='Logout'
           onLogoutSuccess={this.logout}
           onFailure={this.handleLogoutFailure}
-        >
-        </GoogleLogout>: <GoogleLogin
+          ></GoogleLogout>
+          <h5>Access Token:</h5> 
+          <p>{this.state.accessToken}</p>
+        </Fragment>
+      )
+    }
+
+    if (!this.state.isLoggedIn) {
+      authJsx = (
+        <GoogleLogin
           clientId={CLIENT_ID}
           buttonText='Login'
           onSuccess={this.login}
           onFailure={this.handleLoginFailure}
           cookiePolicy={'single_host_origin'}
           responseType='code,token'
-        />
-      }
-      {this.state.accessToken ? <h5>Your Access Token: <br/><br/> {this.state.accessToken} </h5> : null }
-    </div>
-    )
+        ></GoogleLogin>
+      )
+    }
+    
+    return authJsx
   }
 }
 

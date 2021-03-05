@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import { withRouter } from 'react-router-dom'
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
 const CLIENT_ID = '655105447076-lvotoi4b5glipdtcfpl2hvd2hlmfndv4.apps.googleusercontent.com';
@@ -72,4 +73,4 @@ class GoogleAuth extends Component {
   }
 }
 
-export default GoogleAuth;
+export default withRouter(GoogleAuth);

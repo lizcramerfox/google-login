@@ -6,12 +6,12 @@ const CLIENT_ID = '655105447076-lvotoi4b5glipdtcfpl2hvd2hlmfndv4.apps.googleuser
 
 class GoogleAuth extends Component {
    constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       isLoggedIn: false,
-      accessToken: ''
-    };
+      accessToken: '',
+    }
   }
 
   login = (response) => {
@@ -20,6 +20,7 @@ class GoogleAuth extends Component {
         isLoggedIn: true,
         accessToken: response.accessToken
       }))
+      this.props.setToken(response.accessToken)
     }
   }
 
@@ -28,6 +29,7 @@ class GoogleAuth extends Component {
       isLoggedIn: false,
       accessToken: ''
     }))
+    this.props.clearToken()
   }
 
   handleLoginFailure = (response) => {
@@ -41,14 +43,16 @@ class GoogleAuth extends Component {
   render() {
     let authJsx
 
+    console.log(`in Auth, this.props = `, this.props)    
+
     if (this.state.isLoggedIn) {
       authJsx = (
         <Fragment>
           <GoogleLogout
-          clientId={CLIENT_ID}
-          buttonText='Logout'
-          onLogoutSuccess={this.logout}
-          onFailure={this.handleLogoutFailure}
+            clientId={CLIENT_ID}
+            buttonText='Logout'
+            onLogoutSuccess={this.logout}
+            onFailure={this.handleLogoutFailure}
           ></GoogleLogout>
           <h5>Access Token:</h5> 
           <p>{this.state.accessToken}</p>

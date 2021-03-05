@@ -1,26 +1,44 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import GoogleAuth from './Components/GooogleAuth'
+import GoogleAuth from './Components/GoogleAuth'
 // import PhotosIndex from './Components/PhotosIndex'
 import './App.css'
+import { render } from '@testing-library/react'
 
-function App() {
-  return (
-    <Router>
-      <div className="App">
-        <header className="App-header">
-          <h2>Google Photos App</h2>
-          <GoogleAuth />
-        </header>
-        <main>
-          <Switch>
-            <Route path="/" exact component={GoogleAuth} />
-            {/* <Route exact path="/index" component={PhotosIndex} /> */}
-          </Switch>
-        </main>
-      </div>
-    </Router>
-  )
+class App extends Component {
+  constructor() {
+    super()
+
+    this.state = {
+      token: null,
+    }
+  }
+
+  setToken = (token) => this.setState({ token })
+  clearToken = () => this.setState({ token: null })
+
+  render() {
+    console.log(`in App, this.state = `, this.state)
+    return (
+      <Router>
+        <div className="App">
+          <header className="App-header">
+            <h2>Google Photos App</h2>
+          </header>
+          <main className="App-body">
+            <Switch>
+              <Route path="/" exact render={() => (
+                <GoogleAuth setToken={this.setToken} clearToken={this.clearToken} />
+              )} />
+              {/* <Route exact path="/index" component={PhotosIndex} /> */}
+            </Switch>
+          </main>
+        </div>
+      </Router>
+    )
+  }
 }
+  
+  
 
 export default App

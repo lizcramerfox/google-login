@@ -53,6 +53,7 @@ class GoogleAuth extends Component {
             buttonText='Logout'
             onLogoutSuccess={this.logout}
             onFailure={this.handleLogoutFailure}
+            clearToken={this.props.clearToken}
           ></GoogleLogout>
           <h5>Access Token:</h5> 
           <p>{this.state.accessToken}</p>
@@ -67,6 +68,7 @@ class GoogleAuth extends Component {
           buttonText='Login'
           onSuccess={this.login}
           onFailure={this.handleLoginFailure}
+          setToken={this.props.setToken}
           cookiePolicy={'single_host_origin'}
           responseType='code,token'
         ></GoogleLogin>

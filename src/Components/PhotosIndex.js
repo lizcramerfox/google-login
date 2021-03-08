@@ -7,7 +7,6 @@ class PhotosIndex extends Component {
     super(props)
     
     this.state = {
-      token: null,
       photos: [],
     }
   }
@@ -19,7 +18,7 @@ class PhotosIndex extends Component {
     // const Photos = require('googlephotos')
     // const photos = new Photos(your_google_auth_token)
     
-    console.log(this.props)
+    console.log(`in Index, this.props = `, this.props)
 
     return <h2>Index</h2>
   }

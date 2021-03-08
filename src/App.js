@@ -18,7 +18,7 @@ class App extends Component {
   clearToken = () => this.setState({ token: null })
 
   render() {
-    // console.log(`in App, this.state = `, this.state)
+    console.log(`in App, this.state = `, this.state)
     
     return (
       <Router>
@@ -27,14 +27,14 @@ class App extends Component {
             <h2>Google Photos App</h2>
             <nav>
               <ul>
-                <Route path="/" component={GoogleAuth} setToken={this.setToken} clearToken={this.clearToken} />
+                <Route path="/" render={() => <GoogleAuth setToken={this.setToken} clearToken={this.clearToken} token={this.state.token} />} />
                 <Link to="/index">Index</Link>
               </ul>
             </nav>
           </header>
           <main className="App-body">
             <Switch>
-              <Route exact path="/index" component={PhotosIndex} token={this.state.token} />
+              <Route exact path="/index" render={() => <PhotosIndex token={this.state.token} />} />
             </Switch>
           </main>
         </div>

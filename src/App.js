@@ -27,7 +27,7 @@ class App extends Component {
             <h2>Google Photos App</h2>
             <nav>
               <ul>
-                <Route path="/" exact component={GoogleAuth} setToken={this.setToken} clearToken={this.clearToken} />
+                <Route path="/" component={GoogleAuth} setToken={this.setToken} clearToken={this.clearToken} />
                 <Link to="/index">Index</Link>
               </ul>
             </nav>
